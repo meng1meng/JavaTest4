@@ -1,0 +1,33 @@
+version: "3"
+services:
+  mysql-1:
+    container_name: sun-mysql
+    build: ./docker/mysql
+    image: mysql-01
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+  java-1:
+    container_name: sun-java
+    build: ./docker/java
+    image: myjava-01
+    depends_on:
+      - sun-mysql
+    links:
+      - sun-mysql
+    environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_IP=192.168.99.100
+            - MYSQL_PORT=3306
+            - MYSQL_DATABASES=sakila
+            - MYSQL_USER=root
+            - title="love and peace"
+            - description="good"
+        depends_on:
+            - Mysql-1
+
+
+
+
+
